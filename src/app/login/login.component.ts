@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  constructor(private router: Router) {}
   username = 'pabhivarshnv';
   password = '';
   errorMessage = 'Invalid Credentials';
@@ -15,6 +17,7 @@ export class LoginComponent {
     if (this.username === 'pabhivarshnv' && this.password === 'dummy') {
       console.log(this.username);
       this.invalidLogin = false;
+      this.router.navigate(['welcome', this.username]);
     } else {
       this.invalidLogin = true;
     }
