@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ListTodosService } from '../services/data/list-todos.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Todo } from '../list-todos/list-todos.component';
+import { BasicAuthenticationService } from '../services/basic-authentication.service';
 
 @Component({
   selector: 'app-todo',
@@ -12,10 +13,11 @@ export class TodoComponent implements OnInit {
   constructor(
     private todoService: ListTodosService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private basicAuthServices: BasicAuthenticationService
   ) {}
 
-  username = 'pabhivarshnv';
+  username = this.basicAuthServices.getAuthUser();
   id: number;
   todo: Todo;
 

@@ -34,7 +34,7 @@ export class ListTodosComponent implements OnInit {
       .getAllTodos(this.username)
       .subscribe(
         response => (this.todos = response),
-        error => (this.errorMessage = error.error.message)
+        error => (this.errorMessage = error)
       );
   }
 
@@ -44,7 +44,7 @@ export class ListTodosComponent implements OnInit {
         this.successMessage = 'Successfully deleted a Todo!!';
         this.refreshTodos();
       },
-      error => (this.errorMessage = error.error.message)
+      error => (this.errorMessage = error)
     );
   }
 
