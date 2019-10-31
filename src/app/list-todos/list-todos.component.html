@@ -1,11 +1,19 @@
 <h1>My Todo's</h1>
+<div class="alert alert-danger" *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
+<div class="alert alert-success" *ngIf="successMessage">
+  {{ successMessage }}
+</div>
 <div class="container">
   <table class="table">
     <thead>
       <tr>
-        <th>DESCRIPTION</th>
-        <th>TARGET DATE</th>
-        <th>COMPLETED?</th>
+        <th>Description</th>
+        <th>Target Date</th>
+        <th>Completed?</th>
+        <th>Update</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +21,16 @@
         <td>{{ todo.description }}</td>
         <td>{{ todo.targetDate | date }}</td>
         <td>{{ todo.completed }}</td>
+        <td>
+          <button (click)="updateTodo(todo.id)" class="btn btn-warning">
+            Update
+          </button>
+        </td>
+        <td>
+          <button (click)="deleteTodo(todo.id)" class="btn btn-danger">
+            Delete
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

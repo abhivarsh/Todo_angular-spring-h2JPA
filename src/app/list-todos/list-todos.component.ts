@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { v4 as uuid } from 'uuid';
+import { ListTodosService } from '../services/data/list-todos.service';
+import { Router } from '@angular/router';
 
 export class Todo {
   constructor(
@@ -16,13 +18,34 @@ export class Todo {
   styleUrls: ['./list-todos.component.css']
 })
 export class ListTodosComponent implements OnInit {
-  todos = [
-    new Todo(uuid(), 'Book movie tickets', false, new Date()),
-    new Todo(uuid(), 'Buy cloths for mom', false, new Date()),
-    new Todo(uuid(), 'Visit India', false, new Date())
-  ];
+  todos = [];
 
-  constructor() {}
+  errorMessage = '';
+  successMessage = '';
+  username = 'pabhivarshnv';
 
-  ngOnInit() {}
+  constructor(private todoService: ListTodosService, private router: Router) {}
+
+  ngOnInit() {
+    this.refreshTodos();
+  }
+  refreshTodos() {
+    this.todoService
+      .getAllTodos(this.username)
+      .subscribe(
+        response => (this.todos = response),
+        error => (this.errorMessage = error.error.message)
+      );
+  }
+
+  deleteTodo(id: number) {
+    this.todoService.deleteTodo(this.username, id).subscribe(response => {
+      this.successMessage = 'Successfully deleted a Todo!!';
+      this.refreshTodos();
+    });
+  }
+
+  updateTodo(id: number) {
+    this.router.navigate(['/todos', id]);
+  }
 }
